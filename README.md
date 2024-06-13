@@ -1,30 +1,51 @@
-# React + TypeScript + Vite
+This repository is an example of how to implement a blog/documentation site with mdx.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The mdx files are stored in:
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+src\routes\_docs\documents
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Getting Started
+
+```
+npm install
+npm run dev
+```
+
+## Creating a file
+
+To get started with creating a document, create a (\*.mdx) file in the `src\routes\_docs\documents`.
+Make sure that the file exports the following at beginning of the file:
+
+```tsx
+export const meta = {
+  title: "Getting Started",
+  path: "GettingStarted",
+};
+```
+
+The `title` will be name that's used in the sidebar.
+
+The `file` will be the URL that is used when loading the page.
+
+## Ordering the document (left) sidebar
+
+The order of the files in the sidebar is the same as the order the files in the folder.
+
+Hence, it's best you begin the files with numbers to order.
+
+## Title highlight on (right) sidebar
+
+There's an intersection observer component that looks at all `h2` elements on the page
+and displays them all on the sidebar.
+
+The sidebar will highlight the last h2 element that's displayed on the page.
+
+## Indexing
+
+The mdx files are automatically picked up in `-documentIndex.tsx` which uses `import.meta.glob` that acts as sort of an index.
+
+The issue is that all of the `*.mdx` files are loaded to grab the meta data.
+
+This is one way to go about the implementation without maintaining your own index in a json or ts file.
