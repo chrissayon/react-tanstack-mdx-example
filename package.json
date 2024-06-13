@@ -10,14 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mdx-js/react": "^3.0.1",
+    "@mdx-js/rollup": "^3.0.1",
     "@tanstack/react-router": "^1.36.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-syntax-highlighter": "^15.5.0",
+    "sass": "^1.77.5"
   },
   "devDependencies": {
     "@tanstack/router-vite-plugin": "^1.37.0",
+    "@types/node": "^20.14.2",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",
