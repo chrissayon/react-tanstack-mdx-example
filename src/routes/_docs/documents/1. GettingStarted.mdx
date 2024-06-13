@@ -1,0 +1,45 @@
+export const meta = {
+  title: "Getting Started",
+  path: "getting-started",
+};
+
+# Creating a document file
+
+## MDX Files
+
+MDX files are a subset of a markdown (\*.md) that allow you to use JSX syntax inside your markdown files.
+
+The folder directory for this is located in:
+
+```
+src/routes/_docs/documents
+```
+
+## Creating a file
+
+To get started with creating a document, create a (\*.mdx) file in the directory.
+Make sure that the file exports the following at beginning of the file:
+
+```tsx
+export const meta = {
+  title: "Getting Started",
+  path: "GettingStarted",
+};
+```
+
+The `title` will be name that's used in the sidebar.
+
+The `file` will be the URL that is used when loading the page.
+
+## Ordering the document (left) sidebar
+
+The order of the files in the sidebar is the same as the order the files in the folder.
+
+Hence, it's best you begin the files with numbers to order.
+
+## Title highlight on (right) sidebar
+
+There's an intersection observer component that looks at all `h2` elements on the page
+and displays them all on the sidebar.
+
+The sidebar will highlight the last h2 element that's displayed on the page.

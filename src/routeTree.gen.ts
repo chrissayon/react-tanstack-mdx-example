@@ -11,18 +11,74 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as DocsImport } from './routes/_docs'
+import { Route as IndexImport } from './routes/index'
+import { Route as DocsDocsIndexImport } from './routes/_docs/docs.index'
+import { Route as DocsDocsPathImport } from './routes/_docs/docs.$path'
 
 // Create/Update Routes
+
+const DocsRoute = DocsImport.update({
+  id: '/_docs',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const IndexRoute = IndexImport.update({
+  path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DocsDocsIndexRoute = DocsDocsIndexImport.update({
+  path: '/docs/',
+  getParentRoute: () => DocsRoute,
+} as any)
+
+const DocsDocsPathRoute = DocsDocsPathImport.update({
+  path: '/docs/$path',
+  getParentRoute: () => DocsRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {}
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/_docs': {
+      id: '/_docs'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof DocsImport
+      parentRoute: typeof rootRoute
+    }
+    '/_docs/docs/$path': {
+      id: '/_docs/docs/$path'
+      path: '/docs/$path'
+      fullPath: '/docs/$path'
+      preLoaderRoute: typeof DocsDocsPathImport
+      parentRoute: typeof DocsImport
+    }
+    '/_docs/docs/': {
+      id: '/_docs/docs/'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsDocsIndexImport
+      parentRoute: typeof DocsImport
+    }
+  }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({})
+export const routeTree = rootRoute.addChildren({
+  IndexRoute,
+  DocsRoute: DocsRoute.addChildren({ DocsDocsPathRoute, DocsDocsIndexRoute }),
+})
 
 /* prettier-ignore-end */
 
@@ -31,7 +87,28 @@ export const routeTree = rootRoute.addChildren({})
   "routes": {
     "__root__": {
       "filePath": "__root.tsx",
-      "children": []
+      "children": [
+        "/",
+        "/_docs"
+      ]
+    },
+    "/": {
+      "filePath": "index.tsx"
+    },
+    "/_docs": {
+      "filePath": "_docs.tsx",
+      "children": [
+        "/_docs/docs/$path",
+        "/_docs/docs/"
+      ]
+    },
+    "/_docs/docs/$path": {
+      "filePath": "_docs/docs.$path.tsx",
+      "parent": "/_docs"
+    },
+    "/_docs/docs/": {
+      "filePath": "_docs/docs.index.tsx",
+      "parent": "/_docs"
     }
   }
 }

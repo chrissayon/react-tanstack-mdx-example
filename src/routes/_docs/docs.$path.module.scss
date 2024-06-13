@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.markdown {
+  max-width: 50rem;
+  width: 100%;
+}
+
+.intersection {
+  position: fixed;
+}

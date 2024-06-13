@@ -1,4 +1,4 @@
-import { createRootRoute, Outlet, ScrollRestoration } from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -7,7 +7,6 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <>
-      <ScrollRestoration />
       <Outlet />
     </>
   );
